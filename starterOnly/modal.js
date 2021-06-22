@@ -12,7 +12,9 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const close = document.querySelectorAll(".close");
-const firstInput = document.querySelector('input');
+const firstName = document.querySelector('#first');
+const form = document.querySelector('form');
+
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -30,20 +32,29 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
-// ckeck input validity
-firstInput.addEventListener('input', () => {
-  firstInput.setCustomValidity(' ');
-  firstInput.checkValidity();
-});
-
-// invalid event with error message
-firstInput.addEventListener('invalid', () => {
-  if(firstInput.value === '') {
-    firstInput.setCustomValidity('Veuillez saisir votre prénom !');
+// form submit function for firstName
+function firstNameValidator () {
+  const divParent = firstName.parentNode
+  if (firstName.value.length<2) {
+    divParent.setAttribute('data-error-visible', 'true')
+    divParent.setAttribute('data-error', 'Message Erreur')
+    return false
   } else {
-    firstInput.setCustomValidity('Votre prénom ne doit contenir que des lettres');
+    return true
   }
-});
+};
+
+function formSubmit(e) {
+  e.preventDefault()
+  firstNameValidator()
+};
+
+// form submit
+form.addEventListener("submit", formSubmit);
+
+
+
+
 
 
 
