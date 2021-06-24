@@ -10,12 +10,13 @@ function editNav() {
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
+const form = document.querySelector('form');
 const formData = document.querySelectorAll(".formData");
 const close = document.querySelectorAll(".close");
-const form = document.querySelector('form');
 const firstName = document.querySelector('#first');
 const lastName = document.querySelector('#last');
 const email = document.querySelector('#email');
+const birthDate = document.querySelector('#birthdate');
 
 
 
@@ -90,8 +91,11 @@ function formSubmit(e) {
   emailValidator()
 };
 
+// form submit function for birthDate
+const today = new Date().toISOString().split('T')[0];
 
-
+birthDate.value = today;
+birthDate.max = today;
 
 
 
