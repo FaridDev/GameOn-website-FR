@@ -16,8 +16,6 @@ const close = document.querySelectorAll(".close");
 const firstName = document.querySelector('#first');
 const lastName = document.querySelector('#last');
 const email = document.querySelector('#email');
-const birthDate = document.querySelector('#birthdate');
-
 
 
 // launch modal event
@@ -92,10 +90,19 @@ function formSubmit(e) {
 };
 
 // form submit function for birthDate
+const birthDate = document.querySelector('#birthdate');
 const today = new Date().toISOString().split('T')[0];
 
-birthDate.value = today;
-birthDate.max = today;
+const validDate = () => {
+  let day = new Date(today);
+  day.setDate(day.getDate() - 1);
+  let birthday = day.toISOString().split('T')[0];
+  birthDate.value = birthday;
+  birthDate.max = birthday;
+}
+validDate();
+console.log(birthDate);
+
 
 
 
