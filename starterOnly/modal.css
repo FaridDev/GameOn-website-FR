@@ -27,7 +27,7 @@ p {
 }
 
 img {
-  padding-right: 1rem;
+  width: 240px;
 }
 
 .topnav {
@@ -36,10 +36,12 @@ img {
 }
 .header-logo {
     float: left;
-    margin-top: 5px;
+    margin: 5px 0;
 }
 .main-navbar {
     float: right;
+    display: flex;
+    flex-wrap: wrap;
 }
 .topnav a {
   float: left;
@@ -223,6 +225,7 @@ input {
 }
 .formData[data-error-visible="true"]::after {
   opacity: 1;
+  display: flex;
 }
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
@@ -462,6 +465,7 @@ input[data-error]::after {
   height: 100%;
   display: block;
   padding: 0;
+  object-fit: cover;
 }
 .copyrights {
   color: #fe142f;
@@ -516,6 +520,12 @@ footer {
     text-align: center;
   }
 }
+
+@media screen and (max-width: 350px) {
+  .hero-headline {
+    font-size: 3.5rem;
+    white-space: normal;
+  }
 
 @keyframes modalopen {
   from {
