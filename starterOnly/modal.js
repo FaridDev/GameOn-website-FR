@@ -44,8 +44,7 @@ form.addEventListener("submit", formSubmit);
 function formSubmit(e) {
   const submit = document.querySelectorAll('.btn-submit');
   e.preventDefault()
-  const isValid = checkTerms();
-  // const isValid = firstNameValidator() && lastNameValidator() && emailValidator() && checkDate() && checkNumber() && checkRadio() && checkTerms()
+  const isValid = firstNameValidator() && lastNameValidator() && emailValidator() && checkDate() && checkNumber() && checkRadio() && checkTerms()
   if (isValid) {
     modalbg.style.display = "block";
     form.style.display = "none";
