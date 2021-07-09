@@ -11,7 +11,6 @@ function editNav() {
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
-// const closeBtn = document.querySelectorAll(".btn-close");
 const submitBtn = document.querySelectorAll(".btn-submit");
 const modalBody = document.querySelectorAll(".modal-body");
 const form = document.querySelector('form');
@@ -45,10 +44,24 @@ form.addEventListener("submit", formSubmit);
 function formSubmit(e) {
   const submit = document.querySelectorAll('.btn-submit');
   e.preventDefault()
-  const isValid = firstNameValidator() && lastNameValidator() && emailValidator() && checkDate() && checkNumber() && checkRadio() && checkTerms()
+  const isValid = checkTerms();
+  // const isValid = firstNameValidator() && lastNameValidator() && emailValidator() && checkDate() && checkNumber() && checkRadio() && checkTerms()
   if (isValid) {
     modalbg.style.display = "block";
-    form.innerHTML = "Merci pour votre inscription !";
+    form.style.display = "none";
+    const paragraph = document.createElement("p"); // création d'un paragraphe
+    paragraph.textContent = "Merci pour votre inscription"; // ajout du message 
+    modalBody[0].append(paragraph); // on place paragraph dans la div du modalBody
+    const closeBtn = document.createElement("button"); // création du bouton
+    closeBtn.textContent = "Fermer"; // ajout du texte dans le bouton
+    modalBody[0].append(closeBtn); // on le place dans la div du modalBody
+    closeBtn.addEventListener("click", function() {
+      closeModal() 
+      form.style.display = "block";
+      paragraph.remove();
+      closeBtn.remove();
+      form.reset();
+    })
   };
 };
 
@@ -97,9 +110,9 @@ function checkDate() {
   const divParent = birthDay.parentNode
   const today = new Date(); // Date d'aujourd'hui au format jj/mm/aaaa
   const birthDate = new Date(birthDay.value);
+  
+  if ((birthDate > today) || birthDay.value === "") {
  
-  if (birthDate > today) {
-
     divParent.setAttribute('data-error-visible', 'true')
     divParent.setAttribute('data-error', 'Vous devez entrer une date de naissance valide')
     return false

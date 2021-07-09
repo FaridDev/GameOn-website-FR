@@ -206,8 +206,9 @@ main {
   margin: 15px auto;
   height: 700px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  flex-direction:column;
+  justify-content: space-around;
   
 }
 
@@ -346,7 +347,8 @@ input[data-error]::after {
   transform: rotate(-45deg);
 }
 .btn-submit,
-.btn-signup {
+.btn-signup,
+button {
   background: #fe142f;
   display: block;
   margin: 0 auto;
@@ -356,6 +358,10 @@ input[data-error]::after {
   color: #fff;
   cursor: pointer;
   border: 0;
+}
+
+button {
+  
 }
 
 /* custom select styles */
