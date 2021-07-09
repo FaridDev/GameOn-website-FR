@@ -186,9 +186,29 @@ main {
   padding-top: 10px;
 }
 
+.confirmation {
+  display: none;
+  padding: 15px 8%;
+  margin: 15px auto;
+  background: #232323;
+  height: 77%;
+  width: 51%;
+  left: 0;
+  top: 0;
+  position: fixed;
+  overflow: auto;
+  box-sizing: border-box;
+  border-radius: 15px;
+}
+
 .modal-body {
   padding: 15px 8%;
   margin: 15px auto;
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
 }
 
 label {
@@ -337,6 +357,7 @@ input[data-error]::after {
   cursor: pointer;
   border: 0;
 }
+
 /* custom select styles */
 .custom-select {
   position: relative;
@@ -536,4 +557,3 @@ footer {
     opacity: 1;
   }
 }
-

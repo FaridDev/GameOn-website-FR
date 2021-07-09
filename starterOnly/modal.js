@@ -11,6 +11,9 @@ function editNav() {
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
+// const closeBtn = document.querySelectorAll(".btn-close");
+const submitBtn = document.querySelectorAll(".btn-submit");
+const modalBody = document.querySelectorAll(".modal-body");
 const form = document.querySelector('form');
 const formData = document.querySelectorAll(".formData");
 const close = document.querySelectorAll(".close");
@@ -26,17 +29,13 @@ const agreeBox = document.querySelector('#checkbox1');
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
-// launch modal form
-function launchModal() {
+function launchModal() { // To launch modal form
   modalbg.style.display = "block";
 }
 
 // close modal event
 close.forEach((span) => span.addEventListener("click", closeModal));
-
-// close modal form
-function closeModal() {
+function closeModal() { // To close modal form
   modalbg.style.display = "none";
 }
 
@@ -49,6 +48,7 @@ function formSubmit(e) {
   const isValid = firstNameValidator() && lastNameValidator() && emailValidator() && checkDate() && checkNumber() && checkRadio() && checkTerms()
   if (isValid) {
     modalbg.style.display = "block";
+    form.innerHTML = "Merci pour votre inscription !";
   };
 };
 
@@ -93,20 +93,13 @@ function emailValidator() {
 };
 
 // ******* form submit function for birthDate ******* //
-const today = new Date().toISOString().split('T')[0]; // Date d'aujourd'hui au format jj/mm/aaaa
-
-const birthDate = () => {
-  let day = new Date(today); // On part de la date du jour
-  day.setDate(day.getDate() - 1); // Initialisation de la date à J-1
-  let birth = day.toISOString().split('T')[0]; // Conversion au format jj/mm/aaaa
-  birthDay.value = birth;
-};
-birthDate();
-
 function checkDate() {
   const divParent = birthDay.parentNode
+  const today = new Date(); // Date d'aujourd'hui au format jj/mm/aaaa
+  const birthDate = new Date(birthDay.value);
+ 
+  if (birthDate > today) {
 
-  if (birthDate < today) {
     divParent.setAttribute('data-error-visible', 'true')
     divParent.setAttribute('data-error', 'Vous devez entrer une date de naissance valide')
     return false
@@ -116,11 +109,12 @@ function checkDate() {
   }
 };
 
+
 // ******* Form submit function checking number ******* //
 function checkNumber() {
   const divParent = quantity.parentNode
   const quantityReg = new RegExp('^[0-9]+$'); // valeur entre 0 et 9 à entrer
-  if (!quantityReg.test(quantity)) { // On teste la valeur sur la base de la RegExp
+  if (!quantityReg.test(quantity.value)) { // On teste la valeur sur la base de la RegExp
     divParent.setAttribute('data-error-visible', 'true')
     divParent.setAttribute('data-error', 'Vous devez entrer un chiffre')
     return false;
@@ -132,17 +126,18 @@ function checkNumber() {
 
 // ******* Form submit function radio button validation ******* //
 function checkRadio() {
-  const divParent = locationList.parentNode
+  const divParent = locationList[0].parentNode
   let hasChecked = false;
   for (let i = 0; i < locationList.length; i++) {
-    if (locationList[i].checked == true) { // si une des cases est cochée
+    if (locationList[i].checked === true) { // si une des cases est cochée
       hasChecked = true;
-      divParent.setAttribute('data-error-visible', 'false')
-    } else {
-      hasChecked = false;
-      divParent.setAttribute('data-error-visible', 'true')
-      divParent.setAttribute('data-error', 'Veuillez choisir une ville')
-    }
+    } 
+  } 
+  if (hasChecked === false) {
+    divParent.setAttribute('data-error-visible', 'true')
+    divParent.setAttribute('data-error', 'Vous devez choisir une ville')
+  } else {
+    divParent.setAttribute('data-error-visible', 'false')
   }
   return hasChecked;
 };
