@@ -38,32 +38,6 @@ function closeModal() { // To close modal form
   modalbg.style.display = "none";
 }
 
-// ******* form submit *******
-form.addEventListener("submit", formSubmit);
-
-function formSubmit(e) {
-  const submit = document.querySelectorAll('.btn-submit');
-  e.preventDefault()
-  const isValid = firstNameValidator() && lastNameValidator() && emailValidator() && checkDate() && checkNumber() && checkRadio() && checkTerms()
-  if (isValid) {
-    modalbg.style.display = "block";
-    form.style.display = "none";
-    const paragraph = document.createElement("p"); // création d'un paragraphe
-    paragraph.textContent = "Merci pour votre inscription"; // ajout du message 
-    modalBody[0].append(paragraph); // on place paragraph dans la div du modalBody
-    const closeBtn = document.createElement("button"); // création du bouton
-    closeBtn.textContent = "Fermer"; // ajout du texte dans le bouton
-    modalBody[0].append(closeBtn); // on le place dans la div du modalBody
-    closeBtn.addEventListener("click", function() {
-      closeModal() 
-      form.style.display = "block";
-      paragraph.remove();
-      closeBtn.remove();
-      form.reset();
-    })
-  };
-};
-
 // ******* form submit function for firstName ******* //
 function firstNameValidator() {
   const divParent = firstName.parentNode
@@ -128,7 +102,7 @@ function checkNumber() {
   const quantityReg = new RegExp('^[0-9]+$'); // valeur entre 0 et 9 à entrer
   if (!quantityReg.test(quantity.value)) { // On teste la valeur sur la base de la RegExp
     divParent.setAttribute('data-error-visible', 'true')
-    divParent.setAttribute('data-error', 'Vous devez entrer un chiffre')
+    divParent.setAttribute('data-error', 'Vous devez entrer un chiffre positif')
     return false;
   } else {
     divParent.setAttribute('data-error-visible', 'false')
@@ -165,6 +139,39 @@ function checkTerms() {
     divParent.setAttribute('data-error-visible', 'false')
     return true;
   }
+};
+
+// ******* form submit *******
+form.addEventListener("submit", formSubmit);
+
+function formSubmit(e) {
+  const submit = document.querySelectorAll('.btn-submit');
+  e.preventDefault()
+  const isFirstNameValid = firstNameValidator()
+  const isLastNameValid = lastNameValidator()
+  const isEmailValid = emailValidator()
+  const isDateValid = checkDate()
+  const isNumberValid = checkNumber()
+  const IsCityValid = checkRadio()
+  const isTermsValid = checkTerms()
+  const isValid = isFirstNameValid && isLastNameValid && isEmailValid && isDateValid && isNumberValid && IsCityValid  && isTermsValid
+  if (isValid) {
+    modalbg.style.display = "block";
+    form.style.display = "none";
+    const paragraph = document.createElement("p"); // création d'un paragraphe
+    paragraph.textContent = "Merci pour votre inscription"; // ajout du message 
+    modalBody[0].append(paragraph); // on place paragraph dans la div du modalBody
+    const closeBtn = document.createElement("button"); // création du bouton
+    closeBtn.textContent = "Fermer"; // ajout du texte dans le bouton
+    modalBody[0].append(closeBtn); // on le place dans la div du modalBody
+    closeBtn.addEventListener("click", function() {
+      closeModal() 
+      form.style.display = "block";
+      paragraph.remove();
+      closeBtn.remove();
+      form.reset();
+    })
+  };
 };
 
 
